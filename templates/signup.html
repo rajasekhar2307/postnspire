@@ -76,6 +76,8 @@ h2 {
 
 .formcontrol small {
   color: var(--error-color);
+  color: red;
+  font-size: 1rem;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -84,6 +86,13 @@ h2 {
 
 .formcontrol.error small {
   visibility: visible;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  color: red;
 }
 
 .form button {
@@ -103,33 +112,35 @@ h2 {
 
 		<body>
 			<div class="container">
-			<form id="form" action="../signup/" method="post" class="form">
-        {% csrf_token %}
-			<h2>Register</h2>
-			<div class = "formcontrol">
-				<label for="username">Username</label>
-				<input type="text" placeholder="enter your username" name="username">
-				<small>Error Message</small>
+  			<form id="form" action="../signup/" method='post' class="form">
+          {% csrf_token %}
+  			<h2>Signup</h2>
+  			<div class = "formcontrol">
+  				<label for="username">Username</label>
+  				<input type="text" placeholder="enter your username" name="username">
+  				<!-- <small>Error Message</small> -->
+  			</div>
+  			<div class="formcontrol">
+  				<label for="email">email</label>
+  				<input type="text" placeholder="Enter your Email" name="email">
+  				<!-- <small>Error Message</small> -->
+  			</div>
+  			<div class = "formcontrol">
+  				<label for="password">Password</label>
+  				<input type="password" placeholder="Enter your password" name="password">
+  				<!-- <small>Error Message</small> -->
+  			</div>
+  			<div class="formcontrol">
+  				<label for="cpass">Confirm Password</label>
+  				<input type="password" placeholder="Enter password again..." name="cpass">
+  				<!-- <small>Error Message</small> -->
+  			</div>
+   			<button type="submit">Register</button>
+          {% for message in messages %}
+            <label class="error">{{message}}</label>
+          {% endfor %}
+  			</form>				
 			</div>
-			<div class="formcontrol">
-				<label for="email">email</label>
-				<input type="text" placeholder="Enter your Email" name="email">
-				<small>Error Message</small>
-			</div>
-			<div class = "formcontrol">
-				<label for="password">Password</label>
-				<input type="password" placeholder="Enter your password" name="password">
-				<small>Error Message</small>
-			</div>
-			<div class="formcontrol">
-				<label for="cpass">Confirm Password</label>
-				<input type="password" placeholder="Enter password again..." name="cpass">
-				<small>Error Message</small>
-			</div>
- 			<button type="submit">Register</button>
-
-			</form>				
-			</div>
-      <script src="{% static 'js/script.js' %}"></script>
+      <!-- <script src="{% static 'js/script.js' %}"></script> -->
 		</body>
 </html>

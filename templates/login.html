@@ -1,7 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 		<head>
-			<title>Form Validator</title>
+			<title>Blog-Login</title>
+      <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
+      <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+    
 			<style>@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 :root {
@@ -85,6 +89,13 @@ h2 {
   visibility: visible;
 }
 
+.error {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  color: red;
+}
+
 .form button {
   cursor: pointer;
   background-color: #3498db;
@@ -108,15 +119,18 @@ h2 {
 			<h2>Login</h2>
 			<div class="formcontrol">
 				<label for="username">username</label>
-				<input type="text" placeholder="Enter your Email" name="username">
-				<small>Error Message</small>
+				<input type="text" placeholder="Enter your username" name="username">
+				<!-- <small>Error Message</small> -->
 			</div>
 			<div class = "formcontrol">
 				<label for="password">Password</label>
 				<input type="password" placeholder="Enter your password" name="password">
-				<small>Error Message</small>
+				<!-- <small>Error Message</small> -->
 			</div>
  			<button type="submit">Login</button>
+        {% for message in messages %}
+          <label class="error">{{message}}</label>
+        {% endfor %}
 
 			</form>				
 			</div>

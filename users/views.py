@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User, auth
+from django.contrib import messages
 
 # Create your views here.
 def signup(request):
@@ -8,8 +9,10 @@ def signup(request):
 		email = request.POST['email']
 		password = request.POST['password']
 
+		print("inside signup def ")
 		if User.objects.filter(username = username).exists() or User.objects.filter(email = email).exists():
 			print("username/email already taken")
+			messages.warning(request, "Username/Email is already taken")
 			return redirect('signup')
 		else:
 			user = User.objects.create_user(username = username, email = email,password= password)
@@ -18,6 +21,9 @@ def signup(request):
 
 	else:
 		return render(request, 'signup.html')
+
+
+
 
 
 def login(request):
@@ -31,8 +37,15 @@ def login(request):
 			auth.login(request, user)
 			print("logged in ")
 			return redirect('/')
+		else:
+			messages.warning(request, "Invalid Credentials!")
+			return render(request, 'login.html')
+
 	else:
 		return render(request, 'login.html')
+
+
+
 
 def logout(request):
 	auth.logout(request)

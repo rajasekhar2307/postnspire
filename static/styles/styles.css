@@ -313,7 +313,7 @@ li {
   .nav__list {
     width: auto;
     display: flex;
-    font-size: 2.4rem;
+    font-size: 2rem;
     max-height: 100%;
     opacity: 1;
   }
