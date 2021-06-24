@@ -6,10 +6,13 @@ const cpass = document.getElementById('cpass');
 
 //functions to show error and sucess
 function showError(input,message){
+	if(input!= null){
 	const formcontrol = input.parentElement;
 	formcontrol.className = 'formcontrol error';
 	const small = formcontrol.querySelector('small');
 	small.innerText = message;
+
+	}
 }
 
 //show green
@@ -19,24 +22,34 @@ function showSuccess(input){
 
 }
 //function to check if an email is valid....
-function checkEmail(email){
-	 const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+function checkEmail(){
+	 const re = /^[^ ]+@[^ ]+\.[a-z]{2,}$/;
     //return re.test(String(email).toLowerCase());//i need to write notes about this....
-    if(re.test(email.value.trim())){
+    console.log(email.value)
+    if(email.value.match(re)){
+    	console.log("Valid")
     	showSuccess(email);
     }else{
-    	showError(email,`${getFieldName(email)} is not a valid email`);
+    	console.log("Invalid")
+    	showError(email,`Enter a valid email`);
     }
 
 }
 //function to check lenght
-function checkLength(input,min,max){
-	if(input.value.length < min){
-		showError(input,`${getFieldName(input)} should be min ${min}`);
-	}else if(input.value.length > max){
-		showError(input,`${getFieldName(input)} cannot be more than ${max}`);
+function checkUsername(){
+	if(username.value.length < 4){
+		showError(username,`should be min length 4`);
+	}else if(username.value.length > 20){
+		showError(username,`cannot be more than 20`);
 	}else
-	showSuccess(input);
+	showSuccess(username);
+}
+
+function checkLength(){
+	if(password.value.length < 7){
+		showError(password,`should be min 8`);
+	}else
+	showSuccess(password);
 }
 
 
@@ -50,28 +63,34 @@ function checkRequired(inputArr) {
   });
 }
 //function to check Passwords are same or not
-function checkPass(password,cpass){
-	if(password.value!==cpass.value){
+function checkPass(){
+	console.log(password.value);
+	console.log(cpass.value);
+
+	if(password.value!=cpass.value){
 		showError(cpass,'Passwords don\'t match');
+	}
+	else{
+		showSuccess(cpass);
 	}
 }
 
 
-// Get fieldname
-function getFieldName(input) {
-  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
-}
+// // Get fieldname
+// function getFieldName(input) {
+//   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+// }
 
 
 
 
 //adding event listeners
-form.addEventListener('submit',function(e){
-	e.preventDefault();
+// form.addEventListener('submit',function(e){
+// 	e.preventDefault();
 
-	checkRequired([username,email,password,cpass]);
-	checkLength(username,3,15);
-	checkLength(password,6,25);
-	checkEmail(email);
-	checkPass(password,cpass);
-});
+// 	checkRequired([username,email,password,cpass]);
+// 	checkLength(username,3,15);
+// 	checkLength(password,6,25);
+// 	checkEmail(email);
+// 	checkPass(password,cpass);
+// });

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Add a gray background color with some padding */
+body {
+  font-family: Arial;
+  padding: 30px;
+  padding-left: 300px;
+  padding-right: 300px;
+  background: #f1f1f1;
+}
+
+/* Add a card effect for articles */
+.card {
+   background-color: white;
+   padding: 20px;
+   padding-left: 100px;
+   padding-right: 100px;
+   margin-top: 20px;
+}
+
+.image {
+  height: 400px;
+  width: 700px;
+}
+
+.content {
+  padding: 2rem 0;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<div class="row">
+  <div class="centercolumn">
+    {% for post in blogs %}
+    <div class="card">
+
+      <h2>{{post.title}}</h2>
+      <h5>{{post.author}}</h5>
+      <div>
+        <img src="crypto.jpg" class="image">
+      </div>
+        <p></p>
+        <article class="content">{{post.content}}</article>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+</body>
+</html>

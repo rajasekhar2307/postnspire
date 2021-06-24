@@ -1,9 +1,9 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-		<head>
-			<title>Form Validator</title>
-			<style>@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+    <head>
+      <title>Form Validator</title>
+      <style>@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 :root {
   --success-color: #2ecc71;
@@ -76,7 +76,6 @@ h2 {
 
 .formcontrol small {
   color: var(--error-color);
-  color: red;
   font-size: 1rem;
   position: absolute;
   bottom: 0;
@@ -88,7 +87,7 @@ h2 {
   visibility: visible;
 }
 
-.error {
+.errorserver {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
@@ -107,40 +106,45 @@ h2 {
   margin-top: 20px;
   width: 100%;
 }</style>
-		</head>
+    </head>
 
 
-		<body>
-			<div class="container">
-  			<form id="form" action="../signup/" method='post' class="form">
+    <body>
+      <div class="container">
+        <form id="form" action="../signup/" method='post' class="form">
           {% csrf_token %}
-  			<h2>Signup</h2>
-  			<div class = "formcontrol">
-  				<label for="username">Username</label>
-  				<input type="text" placeholder="enter your username" name="username">
-  				<!-- <small>Error Message</small> -->
-  			</div>
-  			<div class="formcontrol">
-  				<label for="email">email</label>
-  				<input type="text" placeholder="Enter your Email" name="email">
-  				<!-- <small>Error Message</small> -->
-  			</div>
-  			<div class = "formcontrol">
-  				<label for="password">Password</label>
-  				<input type="password" placeholder="Enter your password" name="password">
-  				<!-- <small>Error Message</small> -->
-  			</div>
-  			<div class="formcontrol">
-  				<label for="cpass">Confirm Password</label>
-  				<input type="password" placeholder="Enter password again..." name="cpass">
-  				<!-- <small>Error Message</small> -->
-  			</div>
-   			<button type="submit">Register</button>
+        <h2>Signup</h2>
+        <div class = "formcontrol">
+          <label for="username">Username</label>
+          <input type="text" placeholder="enter your username" id="username" name="username" onkeyup="checkUsername()">
+          <small>Error Message</small>
+        </div>
+        <div class="formcontrol">
+          <label for="email">email</label>
+          <input type="text" placeholder="Enter your Email" id="email" name="email" onkeyup="checkEmail()">
+          <small>Error Message</small>
+        </div>
+        <div class = "formcontrol">
+          <label for="password">Password</label>
+          <input type="password" placeholder="Enter your password" id="password" name="password" onkeyup="checkLength()">
+          <small>Error Message</small>
+        </div>
+        <div class="formcontrol">
+          <label for="cpass">Confirm Password</label>
+          <input type="password" placeholder="Enter password again..." id="cpass" name="cpass" onkeyup="checkPass()">
+          <small>Error Message</small>
+        </div>
+        <button type="submit">Register</button>
           {% for message in messages %}
-            <label class="error">{{message}}</label>
+            <label class="errorserver">{{message}}</label>
           {% endfor %}
-  			</form>				
-			</div>
-      <!-- <script src="{% static 'js/script.js' %}"></script> -->
-		</body>
+        </form>       
+      </div>
+      <script src="{% static 'js/script.js' %}"></script>
+      <script>
+        function myFunction(){
+            alert("hi");  
+        }
+      </script>
+    </body>
 </html>
