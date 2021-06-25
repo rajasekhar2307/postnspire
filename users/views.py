@@ -12,11 +12,12 @@ def signup(request):
 		print("inside signup def ")
 		if User.objects.filter(username = username).exists() or User.objects.filter(email = email).exists():
 			print("username/email already taken")
-			messages.warning(request, "Username/Email is already taken")
+			messages.error(request, "Username/Email is already taken")
 			return redirect('signup')
 		else:
 			user = User.objects.create_user(username = username, email = email,password= password)
 			user.save()
+			messages.success(request, "Account Created Succesfully!\nLogin to continue.")
 			return redirect('login')
 
 	else:
@@ -38,8 +39,8 @@ def login(request):
 			print("logged in ")
 			return redirect('/')
 		else:
-			messages.warning(request, "Invalid Credentials!")
-			return render(request, 'login.html')
+			messages.error(request, "Invalid Credentials!")
+			return redirect('login')
 
 	else:
 		return render(request, 'login.html')

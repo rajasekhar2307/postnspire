@@ -1,89 +1,26 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Hey! I am Raja Sekhar a CS Undergrad. Visit to know more about me!"
-    />
-    <meta property="og:title" content="B.Raja Sekhar" />
-    <meta
-      property="og:description"
-      content="Hey! I am Raja Sekhar a CS Undergrad. Visit to know more about me!"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>BLOG</title>
-    <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
-    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  </head>
-  <body>
-    
-      <nav class="nav collapsible">
-        <a href="/"><img class="nav__brand" src="images/logo.svg" alt="" /></a>
-
-        <svg class="icon icon--white nav__toggler">
-          <use xlink:href="images/sprite.svg#menu"></use>
-        </svg>
-        <ul class="list nav__list collapsible__content">
-          <li class="nav__item"><a href="/">Home</a></li>
-          {% if user.is_authenticated %}
-          <li class="nav__item"><a href="users/profile">{{user.username}}</a></li>
-          <li class="nav__item"><a href="users/logout">logout</a></li>
-          {% else %}
-          <li class="nav__item"><a href="users/login">Login</a></li>
-          <li class="nav__item"><a href="users/signup">Signup</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-  
-    <section class="project" id="projects">
-      <h2 class="block--header"> </h2>
-      <div class="grid grid--1x2 projects">
-        <div class="project--card" data-aos="fade-up">
-          <h3 class="project--header">Title Here</h3>
-          <p class="project--content">
+{% extends 'base.html' %}
+{% block content %}
+  <section class="project" id="projects">
+    {% for post in blogs %}
+    <div class="grid grid--1x2 projects">
+      <div class="project--card" data-aos="fade-up">
+        <h3 class="project--header">{{post.title}}</h3>
+        <p class="project--content">
             **IMAGE**
-          </p>
-          <span class="desc--footer">
-            <span class="skill--link">
-              <a href="https://emotdet.herokuapp.com/" class="btn btn--accent"
-                >Read</a
-              > </span
-            >
-          </span>
-        </div>
-
-        <div class="desc--card" data-aos="fade-up">
-          
-          <p class="desc--content">
-            A Space Shuttle shooter game developed using JavaScript
-            A Space Shuttle shooter game developed using JavaScript
-          </p>
-          
-        </div>
+        </p>
+        <span class="desc--footer">
+          <span class="skill--link">
+            <a href="{% url 'blog-detail' post.id %}" class="btn btn--accent"
+              >Read</a
+            ></span>
+        </span>
       </div>
-      
-    </section>
-    
-    <footer class="footer">
-      &copy; Copyright
-      <p style="padding: 1rem 4rem; text-align: center">
-        Designed and Developed by <b><i>team</i></b>
-      </p>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-      AOS.init();
-    </script>
-  </body>
-</html>
+      <div class="desc--card" data-aos="fade-up">
+        <p class="desc--content overflow">
+          {{post.content}}
+        </p>
+      </div>
+    </div>
+    {% endfor %} 
+  </section>
+{% endblock content %}

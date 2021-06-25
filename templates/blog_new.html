@@ -6,7 +6,7 @@
       <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
       <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
     
-			<style>
+			<style>@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 :root {
   --success-color: #2ecc71;
@@ -50,7 +50,6 @@ h2 {
 }
 
 .formcontrol label {
-  font-size: 2rem;
   color: #777;
   display: block;
   margin-bottom: 5px;
@@ -127,17 +126,17 @@ h2 {
 
 		<body>
 			<div class="container">
-			<form id="form" action="../login/" method='post' class="form">
+			<form id="form" method='post' class="form">
         {% csrf_token %}
 			<h2>Login</h2>
 			<div class="formcontrol">
-				<label for="username">Username</label>
-				<input type="text" placeholder="Enter your username" name="username">
+				<label for="username">Post Title</label>
+				<input type="text" placeholder="Enter your username" name="blogtitle">
 				<!-- <small>Error Message</small> -->
 			</div>
 			<div class = "formcontrol">
-				<label for="password">Password</label>
-				<input type="password" placeholder="Enter your password" name="password">
+				<label for="password">Post Content</label>
+				<textarea type="password" placeholder="Enter your password" name="blogcontent"></textarea>
 				<!-- <small>Error Message</small> -->
 			</div>
  			<button type="submit">Login</button>
