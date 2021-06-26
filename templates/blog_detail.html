@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>BLOG</title>
+    <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
 <style>
 * {
   box-sizing: border-box;
 }
 
 /* Add a gray background color with some padding */
-body {
-  font-family: Arial;
+.blog-container {
   padding: 30px;
   padding-left: 300px;
   padding-right: 300px;
@@ -28,12 +36,71 @@ body {
 .image {
   height: 400px;
   width: 700px;
+  object-fit: contain;
 }
 
 .content {
   padding: 2rem 0;
 }
+.title {
+  font-size: 4rem;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 800;
+  margin-bottom: 5rem;
+}
+.blog--details{
+  display: flex;
+  justify-content: space-between;
+}
+.image--container{
+  margin: 3rem 0;
+}
+.pip{
+  border: none;
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+    border-radius: 15px;
+    transition: background .15s;
+    cursor: pointer;
+    float: right;
 
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 7rem;
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  font-size: 1.8rem;
+  border-radius: 10px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #ddd;}
+
+/*.dropdown:hover .dropdown-content {display: block;}*/
+
+
+
+.pip:hover{
+    background: #E8E8E8;
+}
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 800px) {
   .leftcolumn, .rightcolumn {   
@@ -41,20 +108,56 @@ body {
     padding: 0;
   }
 }
+
+.blog-heading-title {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.blog-heading-title .title {
+  display: inline-block;
+
+}
+.show{
+  display: block;
+}
+
+
 </style>
 </head>
-<body>
 
-
-<div class="row">
+<section class="blog-container">
+  <div class="row">
   <div class="centercolumn">
     
     <div class="card">
-
-      <h2>{{object.title}}</h2>
-      <h5>{{object.author}}</h5>
-      <div>
-        <img src="crypto.jpg" class="image">
+      {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+          <label class="success-p">{{message}}</label>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+          <label class="error-p">{{message}}</label>
+        {% endif %}
+      {% endfor %}
+      <div class="blog-heading-title">
+        <h1 class="title">{{object.title}}</h1>
+        
+          <button class="pip dropdown dropbtn" onclick="buttonClicked()">
+            <img src="{% static 'images/threedots.svg' %}" alt="">
+            <div class="dropdown-content" id="drpdown">
+                <a href="del/">Delete</a>
+                <a href="edit/">Edit</a>
+                <a href="#">Share</a>
+            </div>
+          </button> 
+        
+      </div>
+        <p class="meta-data">
+          {{object.date_posted}}  
+          <a href="/users/{{post.author}}">@{{object.author}}</a>
+        </p>      
+      <div class="image--container">
+        <img src="{{ object.image.url }}" class="image">
       </div>
         <p></p>
         <article class="content">{{object.content}}</article>
@@ -62,8 +165,28 @@ body {
     
   </div>
 </div>
+</section>
+
+<script type="text/javascript">
+  function buttonClicked(){
+    console.log("CLicked")
+    document.getElementById("drpdown").classList.toggle("show");
+  }
+// window.onclick = function(event) {
+//   if (!event.target.matches('.dropbtn')) {
+//     var dropdowns = document.getElementsByClassName("dropdown-content");
+//     var i;
+//     for (i = 0; i < dropdowns.length; i++) {
+//       var openDropdown = dropdowns[i];
+//       if (openDropdown.classList.contains('show')) {
+//         openDropdown.classList.remove('show');
+//       }
+//     }
+//   }
+// }
+</script>
 
 
 
-</body>
-</html>
+
+{% endblock %}

@@ -2,21 +2,17 @@
 {% block content %}
 <section class="inherited-form" style="min-height: 90vh;">
   <div class="form-container">
-      <form id="form" method="post" class="form" enctype="multipart/form-data">
+      <form id="form" method="post" class="form">
         {% csrf_token %}
       <h2>USERS BLOG</h2>
       <div class = "formcontrol">
         <label for="username">Title</label>
-        <input type="text" placeholder="enter title of the blog" name="blogtitle" id="blogtitle">
+        <input type="text" value="{{ blog.title }}" placeholder="enter title of the blog" name="blogtitle" id="blogtitle">
         <small>Error Message</small>
       </div>
       <div class="formcontrol">
-        <label for="image">Image</label>
-        <input type="file" name="image" accept="images/*">
-      </div>
-      <div class="formcontrol">
-        <label for="email">blog</label>
-        <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email"></textarea>
+        <label for="content">blog</label>
+        <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email">{{ blog.content }}</textarea>
         <small>Error Message</small>
       </div>
       <button type="submit">POST</button>

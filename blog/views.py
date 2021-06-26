@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import BlogPost
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.models import User
+from django.contrib import messages
+
 
 # Create your views here.
 def post(request):
@@ -33,12 +37,14 @@ class BlogPostDetailView(DetailView):
 # 	template_name = 'blog_new.html'
 # 	fields = ['title', 'content']
 
+
+@login_required(login_url='/users/login/')
 def createBlog(request):
 	if request.method=='POST':
 		blog_title = request.POST['blogtitle']
 		blog_content = request.POST['blogcontent']
-
-		blog = BlogPost(title = blog_title, content= blog_content, author = request.user)
+		blog_image = request.FILES['image']
+		blog = BlogPost(title = blog_title, content= blog_content, author = request.user, image = blog_image)
 
 		
 		blog.save()
@@ -48,3 +54,48 @@ def createBlog(request):
 
 	else:
 		return render(request, 'blog_new.html')
+
+
+@login_required(login_url='/users/login/')
+def editBlog(request, pk):
+
+	blog = BlogPost.objects.get(pk=pk)
+	if(request.user != blog.author):
+		return redirect(f'/blog/{blog.pk}')
+
+	if request.method=='POST':
+		# print(f"request made here is : {BlogPost.objects.filter(pk = pk)}")
+		blog.title = request.POST['blogtitle']
+		blog.content = request.POST['blogcontent']
+		
+		blog.save()
+		messages.success(request, "Blog Updated Successfully!")
+		return redirect(f'/blog/{blog.pk}')
+
+	else:
+		context = {
+			'blog':blog
+		}
+		return render(request, 'blog_update.html',context)
+
+# class BlogPostCreateView(LoginRequiredMixin,CreateView):
+# 	model = BlogPost
+# 	template_name = 'blog_new.html'
+# 	fields = ['title', 'content']
+
+@login_required(login_url='/users/login/')
+def deleteBlog(request, pk):
+	blog = BlogPost.objects.get(pk=pk)
+	if(request.user != blog.author):
+		messages.error(request, "You can't delete other's post!")
+		return redirect(f'/blog/{blog.pk}')
+	else:
+		blog.delete()
+		return redirect("/")
+
+
+
+class BlogPostUpdateView(LoginRequiredMixin,UpdateView):
+	model = BlogPost
+	template_name = 'blog_update.html'
+	fields = ['title', 'content']

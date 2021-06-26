@@ -6,16 +6,20 @@
       <div class="project--card" data-aos="fade-up">
         <h3 class="project--header">{{post.title}}</h3>
         <p class="project--content">
-            **IMAGE**
+            <img class="card--image" src="{{ post.image.url }}" alt="">
         </p>
         <span class="desc--footer">
-          <span class="skill--link">
-            <a href="{% url 'blog-detail' post.id %}" class="btn btn--accent"
+
+            <a href="{% url 'blog-detail' post.id %}" class="btn btn--accent btn--readmore"
               >Read</a
-            ></span>
+            >
         </span>
       </div>
       <div class="desc--card" data-aos="fade-up">
+        <p class="meta-data">
+          {{post.date_posted}}  
+          <a href="/user/{{post.author}}">@{{post.author}}</a>
+        </p>
         <p class="desc--content overflow">
           {{post.content}}
         </p>
