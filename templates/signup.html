@@ -7,9 +7,10 @@
         href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
         rel="stylesheet"
       />
-      <title>BLOG</title>
+      <title>Signup - Ublog</title>
       <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
       <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
+      
     </head>
 
 
@@ -39,13 +40,13 @@
           <input type="password" placeholder="Enter password again..." id="cpass" name="cpass" onkeyup="checkPass()">
           <small>Error Message</small>
         </div>
-        <button type="submit">Register</button>
+        <button class="fbtn" type="submit">Register</button>
           {% for message in messages %}
             <label class="error-p">{{message}}</label>
           {% endfor %}
           <br>
           <p class="hyperlinkinform">Already have an account? 
-          <a href="../../users/login">Login</a></p>
+          <a href="{% url 'login' %}">Login</a></p>
 
         </form>
 

@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+
+{% block head %}
+<title>Ublog - Home</title>
+{% endblock %}
+
+
 {% block content %}
   <section class="project" id="projects">
     {% for post in blogs %}
@@ -8,21 +14,22 @@
         <p class="project--content">
             <img class="card--image" src="{{ post.image.url }}" alt="">
         </p>
+        
+      </div>
+      <div class="desc--card" data-aos="fade-up">
+          <p class="meta-data">
+            <span class="date--posted">{{post.date_posted|date:"M d, Y g:i A"}}</span>
+            <a href="/users/{{post.author}}">@{{post.author}}</a>
+          </p>
+        <p class="desc--content overflow">
+          {{post.content}}
+        </p>
         <span class="desc--footer">
 
             <a href="{% url 'blog-detail' post.id %}" class="btn btn--accent btn--readmore"
               >Read</a
             >
         </span>
-      </div>
-      <div class="desc--card" data-aos="fade-up">
-        <p class="meta-data">
-          {{post.date_posted}}  
-          <a href="/user/{{post.author}}">@{{post.author}}</a>
-        </p>
-        <p class="desc--content overflow">
-          {{post.content}}
-        </p>
       </div>
     </div>
     {% endfor %} 

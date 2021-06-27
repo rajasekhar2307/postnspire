@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<title>@{{ user.username }} | {{user.profile.name}}</title>
+{% endblock %}
+ 
+{% block content %}
+
+
+<section class="inherited-form">
+  	<div class="form-container form">
+      
+      <div class="profile--edit--header">
+          <img class="profile--picture" src="{{user.profile.image.url}}" alt="">
+        <div style="text-align: center;">
+          <h2 style="margin-bottom: 0;">{{user.profile.name}}</h2>
+          <p style="font-size: 2rem">@{{user.username}}</p>
+        </div>
+        {% if user.is_authenticated %}
+          <button class="pip dropdown dropbtn" onclick="buttonClicked()">
+              <img src="{% static 'images/threedots.svg' %}" alt="">
+              <div class="dropdown-content" id="drpdown">
+                  <a href="edit/">Edit</a>
+              </div>
+          </button> 
+        {% else %}
+          <span style="visibility: hidden;">1</span>
+        {% endif %}
+      </div>
+      <div style="text-align: center;margin-bottom: 2rem;">
+          <p style="font-size: 2rem; display: inline-block;">Blogs: </p>
+          <p style="font-size: 2rem; display: inline-block;">{{blogcount}}</p>
+        </div>
+  	  <div class = "formcontrol">
+  		  <label for="name">{{user.profile.name}}</label>
+  	  </div>
+      <div class = "formcontrol">
+        <label for="website"><a href="{{user.profile.website}}" target="_blank">{{user.profile.website}}</a></label>
+      </div>
+      <div class = "formcontrol">
+        <label for="bio">{{user.profile.bio}}</label>
+      </div>
+      <div class = "formcontrol">
+        <label for="email">{{user.mail}}</label>
+      </div>      	
+      {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+          <label class="success-p">{{message}}</label>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+          <label class="error-p">{{message}}</label>
+        {% endif %}
+      {% endfor %}
+  	</div>
+  </section>
+  <script type="text/javascript">
+  function buttonClicked(){
+    console.log("CLicked")
+    document.getElementById("drpdown").classList.toggle("show");
+  }
+// window.onclick = function(event) {
+//   if (!event.target.matches('.dropbtn')) {
+//     var dropdowns = document.getElementsByClassName("dropdown-content");
+//     var i;
+//     for (i = 0; i < dropdowns.length; i++) {
+//       var openDropdown = dropdowns[i];
+//       if (openDropdown.classList.contains('show')) {
+//         openDropdown.classList.remove('show');
+//       }
+//     }
+//   }
+// }
+</script>
+
+{% endblock %}

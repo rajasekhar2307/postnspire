@@ -19,7 +19,9 @@
       href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>BLOG</title>
+    {% block head %}
+    {% endblock %}
+    
     <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -34,12 +36,12 @@
         <ul class="list nav__list collapsible__content">
           <li class="nav__item"><a href="/">Home</a></li>
           {% if user.is_authenticated %}
-          <li class="nav__item"><a href="blog/new/">Create</a></li>
-          <li class="nav__item"><a href="users/profile">{{user.username}}</a></li>
+          <li class="nav__item"><a href="{% url 'blog-create' %}">Create</a></li>
+          <li class="nav__item"><a href="{% url 'profile' user.username %}">{{user.username}}</a></li>
           <li class="nav__item"><a href="/users/logout">logout</a></li>
           {% else %}
-          <li class="nav__item"><a href="users/login">Login</a></li>
-          <li class="nav__item"><a href="users/signup">Signup</a></li>
+          <li class="nav__item"><a href="{% url 'login' %}">Login</a></li>
+          <li class="nav__item"><a href="{% url 'signup' %}">Signup</a></li>
           {% endif %}
         </ul>
       </nav>
@@ -48,7 +50,7 @@
       <footer class="footer">
         &copy; Copyright
         <p style="padding: 1rem 4rem; text-align: center">
-          Designed and Developed by <b><i>ssss</i></b>
+          Designed and Developed by <b><i><a href="#">@Akshay</a> <a href="https://linkedin.com/in/rajasekhar2307/">@Raja Sekhar</a> <a href="#">@Rahul Rapolu</a></i></b>
         </p>
       </footer>
 

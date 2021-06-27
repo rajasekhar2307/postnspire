@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+{% block head %}
+<title>Edit @{{user.username}}</title>
+{% endblock %}
+<section class="inherited-form">
+  	<div class="form-container">
+      <form id="form" method='post' class="form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="profile--edit--header">
+        <div class="imagebutton dropdown dropbtn">
+          <img class="profile--picture" src="{{user.profile.image.url}}" alt="">
+          <div class="dropdown-content" id="drpdown">
+              <a href=""><input type="file" name="image" accept="images/*" value="New"></a>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <h2 style="margin-bottom: 0;">{{user.profile.name}}</h2>
+          <p style="font-size: 2rem"><a href="{% url 'profile' user.username %}">@{{user.username}}</a></p>
+        </div>
+        <span style="visibility: hidden;">1</span>
+      </div>
+  	  <div class="formcontrol">
+  		  <label for="username">Username</label>
+  		  <input type="text" placeholder="Enter your username" value="{{user.username}}" name="username">
+  	  </div>
+  	  <div class = "formcontrol">
+  		  <label for="name">Name</label>
+  		  <input type="name" placeholder="Enter name" value="{{user.profile.name}}" name="name">
+  	  </div>
+      <div class = "formcontrol">
+        <label for="website">Website</label>
+        <input type="url" placeholder="" value="{{user.profile.website}}" name="website">
+      </div>
+      <div class = "formcontrol">
+        <label for="bio">Bio</label>
+        <input type="bio" placeholder="Describe Yourself" value="{{user.profile.bio}}" name="bio">
+      </div>
+      <div class = "formcontrol">
+        <label for="email">Email</label>
+        <input type="email" placeholder="Enter your password" value="{{user.email}}" name="email">
+      </div>
+      <div class = "formcontrol" style="text-align: center;">
+        <label style="text-decoration: underline;" for="email"><a href="{% url 'password_reset' %}">Reset Password</a></label>
+      </div>
+  		  <button class="fbtn" type="submit">Update</button>
+      {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+          <label class="success-p">{{message}}</label>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+          <label class="error-p">{{message}}</label>
+        {% endif %}
+      {% endfor %}
+     
+      </form>				
+  	</div>
+  </section>
+  
+
+{% endblock %}

@@ -5,6 +5,7 @@ from .models import BlogPost
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.utils import timezone
 
 
 # Create your views here.
@@ -44,7 +45,7 @@ def createBlog(request):
 		blog_title = request.POST['blogtitle']
 		blog_content = request.POST['blogcontent']
 		blog_image = request.FILES['image']
-		blog = BlogPost(title = blog_title, content= blog_content, author = request.user, image = blog_image)
+		blog = BlogPost(title = blog_title, content= blog_content, author = request.user, image = blog_image, date_posted=timezone.now())
 
 		
 		blog.save()

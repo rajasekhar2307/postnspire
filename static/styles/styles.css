@@ -16,7 +16,9 @@
 html {
   font-size: 62.5%;
 }
-
+a {
+  text-decoration: none;
+}
 body {
   font-family: Karla, Arial, Helvetica, sans-serif;
   font-size: 2.4rem;
@@ -141,7 +143,7 @@ a {
 
 .project--card {
   margin: 2rem;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 2.8rem;
   border-radius: 16px;
   background: linear-gradient(
     to bottom right,
@@ -531,7 +533,7 @@ li {
 
 .desc--content {
   text-overflow: ellipsis;
-  font-size: 2.3rem;
+  font-size: 2rem;
   line-height: 2.6rem;
   padding: 1.6rem 0 3rem 0;
 }
@@ -544,12 +546,13 @@ li {
   padding-right: 1rem; /* space for ellipsis */
 }
 .overflow::before {
-  position: absolute;
-  content: "...";
-/*   inset-block-end: 0;
-  inset-inline-end: 0; */
-  bottom: 0;
-  right: 0;
+  content:'';
+  width:100%;
+  height:100%;    
+  position:absolute;
+  left:0;
+  top:0;
+  background:linear-gradient(transparent 150px, white);
 }
 .overflow::after {
   content: "";
@@ -657,9 +660,17 @@ h2 {
   margin-top: 1rem;
   color: var(--success-color);
 }
+.success-h {
+  padding: 5rem;
+  font-size: 2.5rem;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 2rem;
+  color: var(--success-color);
+}
 
 
-.form button {
+.form .fbtn {
   cursor: pointer;
   background-color: #3498db;
   border: 2px solid #3498db;
@@ -701,20 +712,103 @@ h2 {
          height: 193px;
 }
 .meta-data {
-  font-style: italic;
-  font-size: 1.6rem;
   display: flex;
   justify-content: space-between;
-  font-weight: 700;
-  color: black;
+  align-items: center;
 }
-.meta-data a {
-  text-decoration: none;
-  font-style: normal;
+.meta-data .date--posted {
+  font-weight: 600;
+  font-size: 1.4rem;
 }
 
+.meta-data a{
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+
 .card--image {
-  height: 200px;
+  height: 220px;
   min-width: 100%;
   object-fit: contain;
 }
+/*threedots*/
+.pip{
+  border: none;
+    height: 25px;
+    width: 25px;
+    margin-top: 10px;
+    border-radius: 15px;
+    transition: background .15s;
+    cursor: pointer;
+    float: right;
+    background: none;
+
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 7rem;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  font-size: 1.8rem;
+  border-radius: 5px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #ddd;}
+
+/*.dropdown:hover .dropdown-content {display: block;}*/
+
+
+
+.pip:hover{
+    background: #E8E8E8;
+}
+.show{
+  display: block;
+}
+.imagebutton {
+  height: 90px;
+  width: 90px;
+  border-radius: 45px;
+  border: none;
+}
+.imagebutton:hover .dropdown-content{
+  display: block;
+}
+/*Profile*/
+
+.profile--picture {
+  height: 90px;
+  width: 90px;
+  object-fit: cover;
+  object-position: 0 0;
+  border-radius: 45px;
+}
+
+.profile--edit--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+/*Django forms*/
+

@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
+<html>
+  <head>
+    <title>New Blog</title>
+  </head>
+
 <section class="inherited-form" style="min-height: 90vh;">
   <div class="form-container">
       <form id="form" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
-      <h2>USERS BLOG</h2>
+      <h2>Create New Blog</h2>
       <div class = "formcontrol">
         <label for="username">Title</label>
         <input type="text" placeholder="enter title of the blog" name="blogtitle" id="blogtitle">
@@ -15,14 +20,15 @@
         <input type="file" name="image" accept="images/*">
       </div>
       <div class="formcontrol">
-        <label for="email">blog</label>
+        <label for="email">Enter Your Text</label>
         <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email"></textarea>
         <small>Error Message</small>
       </div>
-      <button type="submit">POST</button>
+      <button class="fbtn" type="submit">POST</button>
 
       </form>       
       </div>
       <script type="text/javascript" src="script.js"></script>
 </section>
+</html>
 {% endblock content %}

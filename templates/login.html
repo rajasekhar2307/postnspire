@@ -9,15 +9,15 @@
         href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
         rel="stylesheet"
       />
-      <title>BLOG</title>
+      <title>Login - Ublog</title>
       <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
       <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
   </head>
   <section class="inherited-form">
   	<div class="form-container">
-      <form id="form" action="../login/" method='post' class="form">
+      <form id="form" method='post' class="form">
       {% csrf_token %}
-      <h2>Login</h2>
+      <h2>Login - Ublog</h2>
   	  <div class="formcontrol">
   		  <label for="username">Username</label>
   		  <input type="text" placeholder="Enter your username" name="username">
@@ -29,7 +29,7 @@
   		  <label for="password">Password</label>
   		  <input type="password" placeholder="Enter your password" name="password">
   	  </div>
-  		  <button type="submit">Login</button>
+  		  <button class="fbtn" type="submit">Login</button>
       {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
           <label class="success-p">{{message}}</label>
@@ -38,9 +38,11 @@
           <label class="error-p">{{message}}</label>
         {% endif %}
       {% endfor %}
-      <br>
-          <p class="hyperlinkinform">Don't have an account? 
-          <a href="../../users/signup">Signup</a></p>
+          <p class="hyperlinkinform" style="margin: 2rem 0;">Forgot password? 
+          <a href="{% url 'password_reset' %}">Reset</a></p>
+        <hr>
+        <p class="hyperlinkinform" style="margin-top: 2rem;">Don't have an account? 
+          <a href="{% url 'signup' %}">Signup</a></p>
       </form>				
   	</div>
   </section>

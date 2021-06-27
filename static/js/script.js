@@ -4,6 +4,8 @@ const email = document.getElementById('email');
 const password = document.getElementById('password');
 const cpass = document.getElementById('cpass');
 
+
+
 //functions to show error and sucess
 function showError(input,message){
 	if(input!= null){
