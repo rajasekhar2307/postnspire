@@ -62,6 +62,7 @@ def editBlog(request, pk):
 
 	blog = BlogPost.objects.get(pk=pk)
 	if(request.user != blog.author):
+		messages.error(request, "Cannot Update")
 		return redirect(f'/blog/{blog.pk}')
 
 	if request.method=='POST':

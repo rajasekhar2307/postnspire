@@ -7,18 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Hey! I am Raja Sekhar a CS Undergrad. Visit to know more about me!"
+      content="A Website to share your posts to inspire others."
     />
-    <meta property="og:title" content="B.Raja Sekhar" />
+    <meta property="og:title" content="PostnSpire" />
     <meta
       property="og:description"
-      content="Hey! I am Raja Sekhar a CS Undergrad. Visit to know more about me!"
+      content="A Website to share your posts to inspire others."
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="{% static 'images/logoblog.png' %}">
+
     {% block head %}
     {% endblock %}
     
@@ -29,10 +31,7 @@
   <body>
       <nav class="nav collapsible">
         <a href="/"><img class="nav__brand" src="images/logo.svg" alt="" /></a>
-
-        <svg class="icon icon--white nav__toggler">
-          <use xlink:href="images/sprite.svg#menu"></use>
-        </svg>
+      
         <ul class="list nav__list collapsible__content">
           <li class="nav__item"><a href="/">Home</a></li>
           {% if user.is_authenticated %}

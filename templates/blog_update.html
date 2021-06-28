@@ -4,7 +4,7 @@
   <div class="form-container">
       <form id="form" method="post" class="form">
         {% csrf_token %}
-      <h2>USERS BLOG</h2>
+      <h2>Update your Post</h2>
       <div class = "formcontrol">
         <label for="username">Title</label>
         <input type="text" value="{{ blog.title }}" placeholder="enter title of the blog" name="blogtitle" id="blogtitle">

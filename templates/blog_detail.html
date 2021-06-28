@@ -8,7 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>BLOG</title>
+    <title>PostNSpire</title>
     <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
     <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
 <style>
@@ -154,8 +154,8 @@
         
       </div>
         <p class="meta-data">
-          {{object.date_posted}}  
-          <a href="/users/{{post.author}}">@{{object.author}}</a>
+          <span class="date--posted">{{object.date_posted|date:"M d, Y g:i A"}}</span> 
+          <a href="{% url 'profile' object.author %}">@{{object.author}}</a>
         </p>      
       <div class="image--container">
         <img src="{{ object.image.url }}" class="image">
