@@ -9,9 +9,10 @@
       {% csrf_token %}
       <div class="profile--edit--header">
         <div class="imagebutton dropdown dropbtn">
+          <!-- <button class="dropbtn">Dropdown</button> -->
           <img class="profile--picture" src="{{user.profile.image.url}}" alt="">
-          <div class="dropdown-content" id="drpdown">
-              <a href=""><input type="file" name="image" accept="images/*" value="New"></a>
+          <div class="dropdown-content">
+              <a href=""><input style="margin-top: 0;" type="file" name="image" accept="images/*" value="New"></a>
           </div>
         </div>
         <div style="text-align: center;">

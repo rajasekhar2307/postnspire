@@ -785,10 +785,7 @@ h2 {
   display: block;
 }
 .imagebutton {
-  height: 90px;
-  width: 90px;
-  border-radius: 45px;
-  border: none;
+  
 }
 .imagebutton:hover .dropdown-content{
   display: block;
