@@ -12,7 +12,7 @@
       <h2>Create New Blog - PostnSpire</h2>
       <div class = "formcontrol">
         <label for="username">Title</label>
-        <input type="text" placeholder="enter title of the blog" name="blogtitle" id="blogtitle">
+        <input type="text" placeholder="enter title of the blog" name="blogtitle" id="blogtitle" required>
         <small>Error Message</small>
       </div>
       <div class="formcontrol">
@@ -21,12 +21,12 @@
       </div>
       <div class="formcontrol">
         <label for="email">Enter Your Text</label>
-        <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email"></textarea>
+        <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email" required></textarea>
         <small>Error Message</small>
       </div>
       <button class="fbtn" type="submit">POST</button>
 
-      </form>       
+      </form>
       </div>
       <script type="text/javascript" src="script.js"></script>
 </section>

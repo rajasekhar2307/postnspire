@@ -107,7 +107,7 @@
 }
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
+  .leftcolumn, .rightcolumn {
     width: 100%;
     padding: 0;
   }
@@ -130,7 +130,7 @@
 <section class="blog-container">
   <div class="row">
   <div class="centercolumn">
-    
+
     <div class="card">
       {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -142,7 +142,7 @@
       {% endfor %}
       <div class="blog-heading-title">
         <h1 class="title">{{object.title}}</h1>
-        
+
           <button class="pip dropdown dropbtn" onclick="buttonClicked()">
             <img src="{% static 'images/threedots.svg' %}" alt="">
             <div class="dropdown-content" id="drpdown">
@@ -150,20 +150,36 @@
                 <a href="edit/">Edit</a>
                 <a href="#">Share</a>
             </div>
-          </button> 
-        
+          </button>
+
       </div>
         <p class="meta-data">
-          <span class="date--posted">{{object.date_posted|date:"M d, Y g:i A"}}</span> 
+          <span class="date--posted">{{object.date_posted|date:"M d, Y g:i A"}}</span>
           <a href="{% url 'profile' object.author %}">@{{object.author}}</a>
-        </p>      
+        </p>
       <div class="image--container">
         <img src="{{ object.image.url }}" class="image">
       </div>
         <p></p>
         <article class="content">{{object.content}}</article>
+
     </div>
-    
+
+<br><br>
+    <h2>Comments...</h2>
+    {% if not Post.comments.all %}
+    No comments yet.. <a href = "#">
+    Add one</a>
+    {% else %}
+    {% for comment in Post.comments.all %}
+    <strong>
+        {{comment.name}}  -
+        {{comment.date_added}}
+    </strong>
+    <br>
+    {{comment.body}}
+    {% endfor %}
+    {% endif %}
   </div>
 </div>
 </section>

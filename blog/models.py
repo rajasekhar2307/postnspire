@@ -9,3 +9,12 @@ class BlogPost(models.Model):
 	content = models.TextField()
 	date_posted = models.DateTimeField()
 	author = models.ForeignKey(User, on_delete= models.CASCADE)
+
+class Comment(models.Model):
+    Post = models.ForeignKey(BlogPost,related_name = "comments",on_delete = models.CASCADE)
+    name = models.CharField(max_length = 100)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return '%s - %s' % (self.Post.title,self.name)

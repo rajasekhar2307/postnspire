@@ -7,17 +7,17 @@
       <h2>Update your Post</h2>
       <div class = "formcontrol">
         <label for="username">Title</label>
-        <input type="text" value="{{ blog.title }}" placeholder="enter title of the blog" name="blogtitle" id="blogtitle">
+        <input type="text" value="{{ blog.title }}" placeholder="enter title of the blog" name="blogtitle" id="blogtitle" required>
         <small>Error Message</small>
       </div>
       <div class="formcontrol">
         <label for="content">blog</label>
-        <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email">{{ blog.content }}</textarea>
+        <textarea name="blogcontent" class="content-blog" type="text" placeholder="enter the details of the blog post" id="email" required>{{ blog.content }}</textarea>
         <small>Error Message</small>
       </div>
       <button class="fbtn" type="submit">POST</button>
 
-      </form>       
+      </form>
       </div>
       <script type="text/javascript" src="script.js"></script>
 </section>
