@@ -21,9 +21,9 @@
             <span class="date--posted">{{post.date_posted|date:"M d, Y g:i A"}}</span>
             <a href="/users/{{post.author}}">@{{post.author}}</a>
           </p>
-        <p class="desc--content overflow">
-          {{post.content}}
-        </p>
+        <div class="desc--content overflow">
+          {{post.content|safe}}
+        </div>
         <span class="desc--footer">
 
             <a href="{% url 'blog-detail' post.id %}" class="btn btn--accent btn--readmore"

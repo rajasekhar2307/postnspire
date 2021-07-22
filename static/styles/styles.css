@@ -531,7 +531,7 @@ li {
   justify-content: center;
 }
 
-.desc--content {
+.desc--content > p {
   text-overflow: ellipsis;
   font-size: 2rem;
   line-height: 2.6rem;
