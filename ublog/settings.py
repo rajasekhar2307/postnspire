@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'ckeditor',
+    'django_webp',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_webp.context_processors.webp',
             ],
         },
     },
