@@ -1,35 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
 
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Karla:wght@400;600;700&display=swap"
-        rel="stylesheet"
-      />
-      <title>Login - PostnSpire</title>
-      <link rel="stylesheet" href="{% static 'styles/normalize.css' %}" />
-      <link rel="stylesheet" href="{% static 'styles/styles.css' %}" />
-  </head>
-  <section class="inherited-form">
-  	<div class="form-container">
+<section class="inherited-form" style="min-height: 90vh;">
+    <div class="form-container">
       <form id="form" method='post' class="form">
       {% csrf_token %}
-      <h2>Login - Ublog</h2>
-  	  <div class="formcontrol">
-  		  <label for="username">Username</label>
-  		  <input type="text" placeholder="Enter your username" name="username">
-  	  </div>
+      <h2>Login - PostnSpire</h2>
+      <div class="formcontrol">
+        <label for="username">Username</label>
+        <input type="text" placeholder="Enter your username" name="username">
+      </div>
       {% if request.GET.next %}
         <input type="hidden" name="next" value="{{request.GET.next}}">
       {% endif %}
-  	  <div class = "formcontrol">
-  		  <label for="password">Password</label>
-  		  <input type="password" placeholder="Enter your password" name="password">
-  	  </div>
-  		  <button class="fbtn" type="submit">Login</button>
+      <div class = "formcontrol">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Enter your password" name="password">
+      </div>
+        <button class="fbtn" type="submit">Login</button>
       {% for message in messages %}
         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
           <label class="success-p">{{message}}</label>
@@ -43,6 +31,8 @@
         <hr>
         <p class="hyperlinkinform" style="margin-top: 2rem;">Don't have an account? 
           <a href="{% url 'signup' %}">Signup</a></p>
-      </form>				
-  	</div>
+      </form>       
+    </div>
   </section>
+
+{% endblock content %}
