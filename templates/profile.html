@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block metatags %}
+  <meta
+    name="description"
+    content="PostnSpire | @{{user.profile.name}}"
+  />
+  <meta property="og:title" content="{{user.profile.name}} on PostnSpire" />
+  <meta
+    property="og:description"
+    content="{{user.profile.bio}}"
+  />
+{% endblock %}
+
 {% block head %}
 <title>@{{ user.username }} | {{user.profile.name}}</title>
 {% endblock %}

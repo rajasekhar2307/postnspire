@@ -1,4 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block metatags %}
+  <meta
+    name="description"
+    content="A Website to share your posts to inspire others."
+  />
+  <meta property="og:title" content="PostnSpire" />
+  <meta
+    property="og:description"
+    content="A Website to share your posts to inspire others."
+  />
+{% endblock %}
 
 {% block head %}
 <title>PostnSpire - Home</title>
@@ -27,7 +39,15 @@
           {{post.content|safe}}
         </div>
         <span class="desc--footer">
-
+          <div class="meta-data">
+            <div class="likescount">
+              {% csrf_token %}
+              <span class="heart">
+                <img src="{% static 'images/heart_liked.svg' %}" alt="">
+              </span>
+              <p> {{post.get_likes}} Likes</p>
+            </div>
+          </div>
             <a href="{% url 'blog-detail' post.id %}" class="btn btn--accent btn--readmore"
               >Read</a
             >
@@ -35,5 +55,8 @@
       </div>
     </div>
     {% endfor %} 
+    
+    <p> {{ liked }}</p>
+ 
   </section>
 {% endblock content %}

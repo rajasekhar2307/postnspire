@@ -10,6 +10,10 @@ urlpatterns = [
     path('blog/<int:pk>/', BlogPostDetailView.as_view(), name = 'blog-detail'),
     path('blog/<int:pk>/edit/', views.editBlog, name = 'blog-edit'),
     path('blog/<int:pk>/del/', views.deleteBlog, name = 'blog-delete'),
+    path('like/<int:pk>/', views.likePost, name='like-post-home'),
+    path('blog/<int:pk>/like/', views.likePost, name='like-post'),
+    path('blog/<int:pk>/new-comment/', views.addComment,name='add-comment'),
+    path('blog/<int:cid>/<int:pk>/delete-comment/', views.delComment,name='delete-comment')
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

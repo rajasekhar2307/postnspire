@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('', include('blog.urls')),
     path('users/', include('users.urls')),
+    path('ckeditor',include('ckeditor_uploader.urls')),
     path('api/',include('api.urls')),
     path('admin/', admin.site.urls),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name = 'password_reset.html'), name='password_reset'),

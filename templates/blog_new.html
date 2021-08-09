@@ -5,8 +5,8 @@
     <title>New Blog</title>
   </head>
 
-<section class="inherited-form" style="min-height: 90vh;">
-  <div class="form-container">
+<section class="inherited-form" >
+  <div class="form-container" style="width: ;">
       <form id="form" method="post" class="form" enctype="multipart/form-data">
         {% csrf_token %}
       <h2>Create New Blog - PostnSpire</h2>
@@ -17,7 +17,7 @@
       </div>
       <div class="formcontrol">
         <label for="image">Image</label>
-        <input type="file" name="image" accept="images/*">
+        <input type="file" name="image" accept="images/*" required>
       </div>
       <div class="formcontrol">
         <label for="email">Enter Your Text</label>

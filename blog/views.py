@@ -1,37 +1,49 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import BlogPost
+from .models import BlogPost,Comment
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils import timezone
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
-# Create your views here.
-def post(request):
-	context = {
-		'blogs': BlogPost.objects.all()
-	}
-	return render(request, 'blog.html', context)
 
-def index(request):
-	context = {
-		'blogs': BlogPost.objects.all()
-	}
-	return render(request, 'index.html', context)
 
+@login_required(login_url='login')
+def likePost(request, pk):
+	post = get_object_or_404(BlogPost, id = request.POST.get('blog_id'))
+	if post.likes.filter(id=request.user.id).exists():
+		post.likes.remove(request.user)
+	else:
+		post.likes.add(request.user)
+	return HttpResponseRedirect(reverse('blog-detail', args=[str(pk)]))
 
 class BlogPostListView(ListView):
 	model = BlogPost
 	template_name = 'index.html'
 	context_object_name = 'blogs'
 	ordering = ['-date_posted']
+	
+
 
 
 class BlogPostDetailView(DetailView):
 	model = BlogPost
 	template_name = 'blog_detail.html'
+	context_object_name = 'blog'
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		post = get_object_or_404(BlogPost, id=self.kwargs['pk'])
+		liked = False
+		if post.likes.filter(id=self.request.user.id).exists():
+			liked = True
+		else:
+			liked = False
+		context['liked'] = liked
+		return context
 
 # class BlogPostCreateView(CreateView):
 # 	model = BlogPost
@@ -39,7 +51,7 @@ class BlogPostDetailView(DetailView):
 # 	fields = ['title', 'content']
 
 
-@login_required(login_url='/users/login/')
+@login_required(login_url='login')
 def createBlog(request):
 	if request.method=='POST':
 		blog_title = request.POST['blogtitle']
@@ -57,7 +69,7 @@ def createBlog(request):
 		return render(request, 'blog_new.html')
 
 
-@login_required(login_url='/users/login/')
+@login_required(login_url='login')
 def editBlog(request, pk):
 
 	blog = BlogPost.objects.get(pk=pk)
@@ -85,7 +97,7 @@ def editBlog(request, pk):
 # 	template_name = 'blog_new.html'
 # 	fields = ['title', 'content']
 
-@login_required(login_url='/users/login/')
+@login_required(login_url='login')
 def deleteBlog(request, pk):
 	blog = BlogPost.objects.get(pk=pk)
 	if(request.user != blog.author):
@@ -101,3 +113,18 @@ class BlogPostUpdateView(LoginRequiredMixin,UpdateView):
 	model = BlogPost
 	template_name = 'blog_update.html'
 	fields = ['title', 'content']
+
+
+def addComment(request,pk):
+	body = request.POST['comment']
+	post = get_object_or_404(BlogPost,id = pk)
+	auth = request.user
+
+	comment = Comment(author=auth, body=body, Post = post)
+	comment.save()
+	return HttpResponseRedirect(reverse('blog-detail', args=[str(pk)]))
+
+def delComment(request, cid, pk):
+	comment = get_object_or_404(Comment, id=cid)
+	comment.delete()
+	return HttpResponseRedirect(reverse('blog-detail', args=[str(pk)]))

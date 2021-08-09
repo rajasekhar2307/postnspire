@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
+{% block metatags %}
+  <meta
+    name="description"
+    content="A Website to share your posts to inspire others."
+  />
+  <meta property="og:title" content="{{object.title}}" />
+  <meta
+    property="og:description"
+    content="{{object.title}} by @{{object.author}}"
+  />
+{% endblock %}
+
+{% block content %}
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -118,6 +130,7 @@ img {
     width: 100%;
     padding: 0;
   }
+
 }
 
 .blog-heading-title {
@@ -129,7 +142,81 @@ img {
   display: inline-block;
 }
 
+.heart{
+  border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    transition: background .15s;
+    cursor: pointer;
+    float: right;
+    background: none;
+}
 
+.likescount{
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.comments-section{
+  padding: 2rem;
+  font-size: 1.6rem;
+  }
+@media  screen and (min-width: 900px){
+  .likescount{
+    font-size: 2rem;
+  }
+  .comments-section{
+    font-size: 1.8rem;
+  }
+}
+.comment-detail{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.comments-profile {
+  height: 30px;
+  width: 30px;
+}
+.comment-author{
+  margin-left: 1rem;
+  font-weight: 600;
+  color: black;
+}
+.comment-body {
+  display: flex;
+  margin-left: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.comment-delete{
+  display: flex;
+}
+.comments-profiles{
+  display: flex;
+  align-items: center;
+}
+.comment-input{
+  border: none;
+  margin-top: 0.8rem;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  border-bottom: 1px solid black;
+}
+.comment-post{
+  margin-top: 1rem;
+  margin-left: 2rem;
+  border: none;
+  background: #ff6a3d;
+  color: white;
+  padding: 0.7rem;
+  border-radius: 8px;
+}
 </style>
 </head>
 
@@ -160,6 +247,28 @@ img {
           <span class="date--posted">{{object.date_posted|date:"M d, Y g:i A"}}</span>
           <a href="{% url 'profile' object.author %}">@{{object.author}}</a>
         </p>
+        <div class="meta-data">
+          <form class="likescount" action="{% url 'like-post' object.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" name="blog_id" value="{{ object.id }}" class="heart">
+
+              {% if liked %}
+                <img src="{% static 'images/heart_liked.svg' %}" alt="">
+              {% else %}
+                <img src="{% static 'images/heart_unliked.svg' %}" alt="">
+              {% endif %}
+            </button>
+            <p> {{object.get_likes}} Likes</p>
+          </form>
+          <button class="pip dropdown dropbtn" onclick="buttonClicked()">
+            <img src="{% static 'images/threedots.svg' %}" alt="">
+            <div class="dropdown-content" id="drpdown">
+                <a href="del/">Delete</a>
+                <a href="edit/">Edit</a>
+            </div>
+          </button>
+        </div>
+       
       <div class="image--container">
         <img src="{{ object.image.url }}" class="image">
       </div>
@@ -167,14 +276,36 @@ img {
         <article class="content">{{object.content|safe}}</article>
 
     </div>
+    <div class="comments-section">
+      <h2>Comments...</h2>
+        {% for comment in object.comments.all %}
+        <div class="comment-detail">
+          <div class="comments-profiles">
+            <img class="profile--picture comments-profile" src="{{comment.author.profile.image.url}}" alt="">
+            <a class="comment-author" href="{% url 'profile' comment.author %}">{{comment.author}}</a>
+          </div>
+          <div class="comment-delete">
+            {% ifequal comment.author.id user.id %}
+            <a href="{% url 'delete-comment' comment.id object.id %}">Delete</a>
+            {% endifequal %}
+          </div>
+        </div>
+        <p class="comment-body">{{comment.body}}</p>
 
-<!-- <br><br>
-    <h2>Comments...</h2>
-    {% for com in object.comments.all %}
-    <a href="{% url 'profile' object.author %}">@{{com.author}}</a>
-    <p>{{com.body}}</p>
-    {% endfor %}
-  -->   
+        {% endfor %}
+        <div class="comment-detail">
+          <div class="comments-profiles">
+            <img class="profile--picture comments-profile" src="{{user.profile.image.url}}" alt="">
+            <a class="comment-author" href="{% url 'profile' user.username %}">{{user.username}}</a>
+          </div>
+          
+        </div>
+        <form action="{% url 'add-comment' object.id  %}" method="post" >
+          {%  csrf_token %}
+          <input class="comment-input" type="text" name="comment" placeholder="Comment...">
+          <button class="comment-post " type="submit">post</button>
+        </form>
+    </div>    
   </div>
 </div>
 </section>

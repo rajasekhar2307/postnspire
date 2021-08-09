@@ -521,7 +521,7 @@ li {
 .desc--footer {
   margin-top: 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .desc--content > p {
@@ -800,6 +800,25 @@ h2 {
   margin-bottom: 5rem;
 }
 
+
+.likescount{
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.heart{
+  border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    transition: background .15s;
+    cursor: pointer;
+    float: right;
+    background: none;
+}
 /*Logo*/
 
 
