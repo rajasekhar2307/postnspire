@@ -293,18 +293,26 @@ img {
         <p class="comment-body">{{comment.body}}</p>
 
         {% endfor %}
-        <div class="comment-detail">
-          <div class="comments-profiles">
-            <img class="profile--picture comments-profile" src="{{user.profile.image.url}}" alt="">
-            <a class="comment-author" href="{% url 'profile' user.username %}">{{user.username}}</a>
+        {% if user.is_authenticated %}
+          <div class="comment-detail">
+            <div class="comments-profiles">
+              <img class="profile--picture comments-profile" src="{{user.profile.image.url}}" alt="">
+              <a class="comment-author" href="{% url 'profile' user.username %}">{{user.username}}</a>
+            </div>
+            
           </div>
-          
-        </div>
-        <form action="{% url 'add-comment' object.id  %}" method="post" >
-          {%  csrf_token %}
-          <input class="comment-input" type="text" name="comment" placeholder="Comment...">
-          <button class="comment-post " type="submit">post</button>
-        </form>
+          <form action="{% url 'add-comment' object.id  %}" method="post" >
+            {%  csrf_token %}
+            <input class="comment-input" type="text" name="comment" placeholder="Comment...">
+            <button class="comment-post " type="submit">post</button>
+          </form>
+        {% else %}
+          <div class="comment-detail">
+            <div class="comments-profiles">
+              <a class="comment-author" href="{% url 'login' %}">Login to comment...</a>
+            </div>
+          </div>
+        {% endif %}
     </div>    
   </div>
 </div>
